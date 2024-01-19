@@ -1,0 +1,363 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import Camera kivy.uix.camera.Camera
+#:import utils kivy.utils
+<P>:
+    Label:
+        text: "TRY AGAIN!!"
+<WindowManager>:
+    Screen:
+        name:"screen1"
+        GridLayout:
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    source:'h3.jpg'
+                    pos: self.pos
+                    size: self.size
+            cols:1
+            padding:15
+            BoxLayout:
+                Image:
+                    source:"mike2.png"
+                    size_hint: (None, None)
+                    size: (200, 190)
+                    pos_hint : {"x":.7, "y":.3}
+
+                Label:
+                    text:"Gnani"
+                    font_size:80
+                    font_name: "Comic"
+                    color: 0, 0, 0, 1
+                    pos_hint:{"x":.7,"y":.5}
+                    size_hint:.8,.8
+                Button:
+                    text:"history"
+                    size_hint:.3,.1
+                    pos_hint : {"x":1,"y":.93}
+                    on_release:root.get_history(root)
+
+            Button:
+                text:"Voice to Text Translation"
+                id :id4
+                size_hint: 1, .2
+                on_release:root.transition=FadeTransition();root.current = "screen3"
+
+            Button:
+                text:"Text to Text Translation"
+                id:id3
+                size_hint: 1, .2
+                on_release:root.transition=FadeTransition();root.current = "screen2"
+
+            Button:
+                text:"Image Processing "
+                id:id4
+                size_hint: 1, .2
+                on_release:root.transition=FadeTransition();root.current = "screen4"
+
+    Screen:
+        name:"screen2"
+        GridLayout:
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    source:'water3.jpg'
+                    pos: self.pos
+                    size: self.size
+
+            cols:1
+            padding:20
+            Label:
+                text:"Text to Text Translation"
+                font_size:45
+                font_name: "Comic"
+                color: 16/255, 28/255, 63/255, 1
+
+            BoxLayout:
+                orientation:'horizontal'
+                spacing:20
+                padding:20
+                Spinner:
+                    id:spinner_id
+                    text:"select"
+                    values:["languages"]
+                    on_text:root.clicked(spinner_id.text,root)
+                    size_hint:.4,.8
+                TextInput:
+                    id:fromlang
+                    size_hint:.4,.8
+            BoxLayout:
+                orientation:'horizontal'
+                spacing:20
+                padding:20
+                Spinner:
+                    id:spinner_id1
+                    text:"select"
+                    values:["languages"]
+                    on_text:root.clicked1(spinner_id1.text,root)
+                    size_hint:.4,.8
+                    pos_hint:{"x":.5,"y":.6}
+                TextInput:
+                    id:tolang
+                    size_hint:.4,.8
+                    pos_hint:{"x":.5,"y":.6}
+            BoxLayout:
+                padding:15
+                TextInput:
+                    id:fromtext
+                    size_hint:1,.8
+                    hint_text:"Enter the text to translate"
+                    pos_hint:{"x":.5,"y":.6}
+            BoxLayout:
+                padding:15
+                Button:
+                    text:"translate"
+                    size_hint:1,.8
+                    pos_hint:{"x":.5,"y":.6}
+                    on_press:root.text(root)
+
+            BoxLayout:
+                padding:15
+                TextInput:
+                    id:totext
+                    size_hint:1,.8
+                    hint_text:"Translated Text Displays Here"
+                    pos_hint:{"x":.5,"y":.7}
+            BoxLayout:
+                padding:15
+                Button:
+                    text:"Go Back"
+                    on_release:root.transition=FadeTransition(); root.current = "screen1"
+                    size_hint:.7,.6
+                Label:
+                    text:""
+                Button:
+                    text:"Refresh"
+                    size_hint:.7,.6
+                    on_release:root.screenrefresh(root)
+                Label:
+                    text:""
+                Button:
+                    text:"Save"
+                    size_hint:.7,.6
+                    on_release:root.savefirebase(root)
+
+
+
+
+
+
+
+
+
+
+
+
+    Screen:
+        name:"screen3"
+        GridLayout:
+            cols:1
+            padding:20
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    source:'water3.jpg'
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text:"Voice to Text Translation"
+                font_size:45
+                font_name: "Comic"
+                color: 16/255, 28/255, 63/255, 1
+            BoxLayout:
+                padding:15
+                spacing:10
+                Button:
+                    text:"Speak"
+                    on_release:root.voiceinput(root)
+                    size_hint:1,.7
+                TextInput:
+                    id:inputques1
+                    hint_text: "listening........."
+                    size_hint:1,.7
+            BoxLayout:
+                padding:15
+                spacing:10
+                Button:
+                    text:"src"
+                    on_release:root.srcinput(root)
+                    size_hint:1,.7
+                TextInput:
+                    id:inputsrc
+                    hint_text: "Listening........."
+                    size_hint:1,.7
+            BoxLayout:
+                padding:15
+                spacing:10
+                Button:
+                    text:"dest"
+                    on_release:root.destinput(root)
+                    size_hint:1,.7
+                TextInput:
+                    id:inputdes
+                    hint_text: "Listening........."
+                    size_hint:1,.7
+            BoxLayout:
+                padding:15
+                spacing:10
+                Button:
+                    text:"Translate"
+                    on_release:root.speechtranslate(root)
+                    size_hint:1,.7
+                TextInput:
+                    id:inputrans
+                    hint_text: "Translated Text Displays Here"
+                    size_hint:1,.7
+            BoxLayout:
+                padding:15
+                Button:
+                    text:"Go Back"
+                    on_release:root.transition=FadeTransition(); root.current = "screen1"
+                    size_hint:.7,.6
+                Label:
+                    text:""
+                Button:
+                    text:"Refresh"
+                    size_hint:.7,.6
+                    on_release:root.screenrefresh1(root)
+                Label:
+                    text:""
+                Button:
+                    text:"Voice"
+                    on_release:root.get_voice(inputtrans.text,root)
+                    size_hint:.7,.6
+
+
+    MDScreen:
+        name:"screen4"
+        GridLayout:
+            cols:1
+            padding:20
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    source:'water3.jpg'
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text:"Image Processing"
+                font_size:45
+                font_name: "Comic"
+                color: 16/255, 28/255, 63/255, 1
+            BoxLayout:
+                padding:15
+                spacing:10
+                Spinner:
+                    id:datatrain
+                    text:"select language"
+                    values:["languages"]
+                    size_hint:1,.7
+                    on_text:root.data(datatrain.text,root)
+                TextInput:
+                    id:train
+                    size_hint:1,.7
+            BoxLayout:
+                padding:15
+                spacing:10
+                orientation:'horizontal'
+                Button:
+                    text: "Take Photo"
+                    size_hint:1,.7
+                    on_release: root.capture(root)
+                Button:
+                    text:"choose file"
+                    size_hint:1,.7
+                    on_press:root.select_file(root)
+            BoxLayout:
+                padding:15
+                spacing:10
+                Button:
+                    text: "extract"
+                    size_hint:.3,.6
+                    pos_hint:{"x":1,"y":.3}
+                    on_release:root.extract(root)
+                TextInput:
+                    id:extracttext
+                    size_hint:.6,.9
+                    hint_text:"Text Displays Here"
+
+
+
+            BoxLayout:
+                padding:15
+                Button:
+                    text:"Go Back"
+                    on_release:root.transition=FadeTransition(); root.current = "screen1"
+                    size_hint:.7,.6
+                Label:
+                    text:""
+                Button:
+                    text:"Refresh"
+                    size_hint:.7,.6
+                    on_release:root.screenrefresh2(root)
+                Label:
+                    text:""
+                Button:
+                    text:"Translate"
+                    size_hint:.7,.6
+                    on_release:root.transition=FadeTransition(); root.current = "screen2"
+
+
+
+
+
+    Screen:
+        name:"screen6"
+        canvas.before:
+            Color:
+                rgba: 38/256, 132/256, 226/256, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Button:
+            text:"Clear History"
+            size_hint:.2,.08
+            pos_hint : {"x":.6,"y":.93}
+            on_release:root.clearhistory(root)
+        Button:
+            text:"Go Back"
+            size_hint:.2,.08
+            pos_hint : {"x":.8,"y":.93}
+            on_release:root.transition=FadeTransition(); root.current = "screen1"
+        ScrollView:
+            size_hint: (1, None)
+            size: (557,557)
+            do_scroll_x: False
+            GridLayout:
+                cols: 1
+                id :box2
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
